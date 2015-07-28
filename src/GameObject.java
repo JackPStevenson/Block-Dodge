@@ -16,8 +16,8 @@ public class GameObject {
 	}
 
 	public void Update() {
-		if (X > SpaceInvadorz.WidthF - 100) {
-			X = SpaceInvadorz.WidthF - 100;
+		if (X > SpaceInvadorz.widthF - 100) {
+			X = SpaceInvadorz.widthF - 100;
 		}
 		if (X < 50) {
 			X = 50;
