@@ -22,6 +22,8 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	boolean dPressed = false;
 	boolean aPressed = false;
 	GameObject Test;
+	GameObject Enemy1;
+	GameObject Enemy2;
 	JFrame mainFrame;
 	Timer FPS;
 	static final int widthF = 500;
@@ -55,7 +57,9 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 		mainFrame = new JFrame("Space Invadorz");
 		mainFrame.add(this);
 		mainFrame.addKeyListener(this);
-		Test = new GameObject(225, 350, 5, 50, 50);
+		Test = new PlayerClass(225, 350, 5, 50, 50);
+		Enemy1 = new EnemyClass(50, 50, 15, 50, 50, Test);
+		Enemy2 = new EnemyClass(400, 50, 15, 50, 50, Test);
 		mainFrame.setSize(widthF, heightF);
 		mainFrame.setVisible(true);
 		FPS = new Timer(1000 / 30, this);
@@ -65,6 +69,8 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 
 	private void Update() {
 		Test.Update();
+		Enemy1.Update();
+		Enemy2.Update();
 		if (dPressed == true) {
 			Test.moveRight();
 		}
@@ -85,6 +91,8 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 		g.drawImage(backgroundSky, bkgX, bkgY, null);
 		g.drawImage(backgroundSky2, bkgX2, bkgY2, null);
 		Test.paint(g);
+		Enemy1.paint(g);
+		Enemy2.paint(g);
 	}
 
 	public void actionPerformed(ActionEvent e) {
