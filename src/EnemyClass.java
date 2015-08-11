@@ -7,6 +7,7 @@ public class EnemyClass extends GameObject {
 	GameObject playerObject;
 	int startX;
 	boolean charge = false;
+	static int warmUpDelay = 1500;
 
 	public EnemyClass(int X, int Y, int Sp, int Wdh, int Hgt, GameObject Player) {
 		super(X, Y, Sp, Wdh, Hgt);
@@ -16,7 +17,7 @@ public class EnemyClass extends GameObject {
 	}
 
 	public void Update() {
-		if (System.currentTimeMillis() - warmUp > 1500) {
+		if (System.currentTimeMillis() - warmUp > warmUpDelay) {
 			charge = true;
 			warmUp = System.currentTimeMillis();
 			playerLoggedX = playerObject.getX();
@@ -30,6 +31,13 @@ public class EnemyClass extends GameObject {
 			}
 			Y = Y + Sp;
 			if (Y > 375) {
+				SpaceInvadorz.score = SpaceInvadorz.score + 1;
+				if (SpaceInvadorz.score > SpaceInvadorz.highScore) {
+					SpaceInvadorz.highScore = SpaceInvadorz.score;
+					if (warmUpDelay > 1000) {
+						warmUpDelay = warmUpDelay - (SpaceInvadorz.score);
+					}
+				}
 				Y = 50;
 				X = startX;
 				charge = false;
