@@ -7,11 +7,11 @@ public class PlayerClass extends GameObject {
 	}
 
 	public void Update() {
-		if (X > SpaceInvadorz.widthF - 100) {
-			X = SpaceInvadorz.widthF - 100;
+		if (X > SpaceInvadorz.widthF - 130) {
+			X = SpaceInvadorz.widthF - 130;
 		}
-		if (X < 50) {
-			X = 50;
+		if (X < 80) {
+			X = 80;
 		}
 	}
 

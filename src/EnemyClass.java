@@ -23,12 +23,14 @@ public class EnemyClass extends GameObject {
 			playerLoggedX = playerObject.getX();
 		}
 		if (charge) {
+
 			if (X < playerLoggedX) {
 				X = X + Sp;
 			}
 			if (X > playerLoggedX) {
 				X = X - Sp;
 			}
+
 			Y = Y + Sp;
 			if (Y > 375) {
 				SpaceInvadorz.score = SpaceInvadorz.score + 1;

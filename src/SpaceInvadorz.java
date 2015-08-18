@@ -5,13 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -26,6 +24,7 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	GameObject Test;
 	GameObject Enemy1;
 	GameObject Enemy2;
+	JFrame startFrame;
 	JFrame mainFrame;
 	Timer FPS;
 	static final int widthF = 500;
@@ -35,10 +34,22 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	int bkgX2 = 0;
 	int bkgY2 = -500;
 	int dSTime;
+	static int gameState = 0;
+	public static final int startScreen = 0;
+	public static final int gameScreen = 1;
+	public static final int gOScreen = 2;
 	static int score;
 	static int highScore;
 	static int lives = 2;
 	boolean dShield = false;
+
+	public static int getGameState() {
+		return gameState;
+	}
+
+	public static void setGameState(int a) {
+		gameState = a;
+	}
 
 	public static void main(String[] args) {
 		Toolkit.getDefaultToolkit();
@@ -47,14 +58,18 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	}
 
 	public void MainStart() {
-		mainFrame = new JFrame("Space Invadorz");
-		StartScreen startingScreen = new StartScreen();
-		mainFrame.add(startingScreen);
-		mainFrame.setSize(widthF, heightF);
-		mainFrame.setVisible(true);
+		startFrame = new JFrame("Start Frame");
+		StartScreen startingScreen = new StartScreen(this, highScore);
+		startFrame.add(startingScreen);
+		startFrame.setSize(widthF, heightF);
+		startFrame.setVisible(true);
+
 	}
 
 	public void MainRun() {
+		mainFrame = new JFrame("Game Frame");
+		mainFrame.setSize(widthF, heightF);
+		mainFrame.setVisible(true);
 		backgroundURL = getClass().getResource(
 				"blue-clouds-background-cartoon-style-clouds.png");
 		try {
@@ -81,6 +96,7 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	}
 
 	private void Update() {
+		StartScreen.HighScore.setText("High Score: " + highScore / 2);
 		Test.Update();
 		Enemy1.Update();
 		Enemy2.Update();
@@ -102,6 +118,9 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 			if (Test.X < (Enemy1.X + 50)) {
 				if (Test.Y > Enemy1.Y) {
 					if (Test.Y < (Enemy1.Y + 50)) {
+						if (dShield = false) {
+							lives--;
+						}
 						dShield = true;
 					}
 				}
@@ -111,6 +130,9 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 			if (Test.X < (Enemy2.X + 50)) {
 				if (Test.Y > Enemy2.Y) {
 					if (Test.Y < (Enemy2.Y + 50)) {
+						if (dShield = false) {
+							lives--;
+						}
 						dShield = true;
 					}
 				}
@@ -127,20 +149,24 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 					score = 0;
 					lives = 2;
 					Test.X = 225;
+					mainFrame.dispose();
+					FPS.stop();
 				}
 			}
 		}
 	}
 
 	public void paint(Graphics g) {
-		g.drawImage(backgroundSky, bkgX, bkgY, null);
-		g.drawImage(backgroundSky2, bkgX2, bkgY2, null);
-		Test.paint(g);
-		Enemy1.paint(g);
-		Enemy2.paint(g);
-		g.drawString("Score: " + score / 2, 10, 20);
-		g.drawString("High Score: " + highScore / 2, 10, 40);
-		g.drawString("Lives: " + lives, 10, 460);
+		if (gameState == gameScreen) {
+			g.drawImage(backgroundSky, bkgX, bkgY, null);
+			g.drawImage(backgroundSky2, bkgX2, bkgY2, null);
+			Test.paint(g);
+			Enemy1.paint(g);
+			Enemy2.paint(g);
+			g.drawString("Score: " + score / 2, 10, 20);
+			g.drawString("High Score: " + highScore / 2, 10, 40);
+			g.drawString("Lives: " + lives, 10, 460);
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
