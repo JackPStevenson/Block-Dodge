@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -21,14 +22,16 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	Image backgroundSky2;
 	boolean dPressed = false;
 	boolean aPressed = false;
-	GameObject Test;
+	GameObject Player;
 	GameObject Enemy1;
 	GameObject Enemy2;
 	JFrame startFrame;
 	JFrame mainFrame;
 	Timer FPS;
+	Font font;
 	static final int widthF = 500;
 	static final int heightF = 500;
+	int BaESpeed = 20;
 	int bkgX = 0;
 	int bkgY = 0;
 	int bkgX2 = 0;
@@ -87,9 +90,10 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 
 		mainFrame.add(this);
 		mainFrame.addKeyListener(this);
-		Test = new PlayerClass(225, 350, 5, 50, 50);
-		Enemy1 = new EnemyClass(50, 50, 15, 50, 50, Test);
-		Enemy2 = new EnemyClass(400, 50, 15, 50, 50, Test);
+		Player = new PlayerClass(225, 350, 5, 50, 50);
+		Enemy1 = new EnemyClass(50, 50, BaESpeed, 50, 50, Player);
+		Enemy2 = new EnemyClass(400, 50, BaESpeed, 50, 50, Player);
+		font = new Font("ComicSansMS", Font.PLAIN, 15);
 		FPS = new Timer(1000 / 30, this);
 		FPS.start();
 
@@ -97,43 +101,59 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 
 	private void Update() {
 		StartScreen.HighScore.setText("High Score: " + highScore / 2);
-		Test.Update();
+		Player.Update();
 		Enemy1.Update();
 		Enemy2.Update();
 		if (dPressed == true) {
-			Test.moveRight();
+			Player.moveRight();
 		}
 		if (aPressed == true) {
-			Test.moveLeft();
+			Player.moveLeft();
 		}
-		bkgY = bkgY + 2;
-		bkgY2 = bkgY2 + 2;
+		bkgY = bkgY + BaESpeed / 2;
+		bkgY2 = bkgY2 + BaESpeed / 2;
 		if (bkgY >= 500) {
 			bkgY = -500;
 		}
 		if (bkgY2 >= 500) {
 			bkgY2 = -500;
 		}
-		if (Test.X > Enemy1.X) {
-			if (Test.X < (Enemy1.X + 50)) {
-				if (Test.Y > Enemy1.Y) {
-					if (Test.Y < (Enemy1.Y + 50)) {
-						if (dShield = false) {
+		if (Player.X > Enemy1.X - 50) {
+			if (Player.X < (Enemy1.X + 50)) {
+				if (Player.Y > Enemy1.Y) {
+					if (Player.Y < (Enemy1.Y + 50)) {
+						if (dShield == false) {
 							lives--;
 						}
 						dShield = true;
+						if (lives == 0) {
+							EnemyClass.warmUpDelay = 1500;
+							score = 0;
+							lives = 2;
+							Player.X = 225;
+							mainFrame.dispose();
+							FPS.stop();
+						}
 					}
 				}
 			}
 		}
-		if (Test.X > Enemy2.X) {
-			if (Test.X < (Enemy2.X + 50)) {
-				if (Test.Y > Enemy2.Y) {
-					if (Test.Y < (Enemy2.Y + 50)) {
-						if (dShield = false) {
+		if (Player.X > Enemy2.X - 50) {
+			if (Player.X < (Enemy2.X + 50)) {
+				if (Player.Y > Enemy2.Y) {
+					if (Player.Y < (Enemy2.Y + 50)) {
+						if (dShield == false) {
 							lives--;
 						}
 						dShield = true;
+						if (lives == 0) {
+							EnemyClass.warmUpDelay = 1500;
+							score = 0;
+							lives = 2;
+							Player.X = 225;
+							mainFrame.dispose();
+							FPS.stop();
+						}
 					}
 				}
 			}
@@ -143,15 +163,6 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 			if (dSTime > 15) {
 				dShield = false;
 				dSTime = 0;
-				lives--;
-				if (lives == 0) {
-					EnemyClass.warmUpDelay = 1500;
-					score = 0;
-					lives = 2;
-					Test.X = 225;
-					mainFrame.dispose();
-					FPS.stop();
-				}
 			}
 		}
 	}
@@ -160,12 +171,13 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 		if (gameState == gameScreen) {
 			g.drawImage(backgroundSky, bkgX, bkgY, null);
 			g.drawImage(backgroundSky2, bkgX2, bkgY2, null);
-			Test.paint(g);
+			Player.paint(g);
 			Enemy1.paint(g);
 			Enemy2.paint(g);
+			g.setFont(font);
 			g.drawString("Score: " + score / 2, 10, 20);
 			g.drawString("High Score: " + highScore / 2, 10, 40);
-			g.drawString("Lives: " + lives, 10, 460);
+			g.drawString("Lives: " + lives, 440, 20);
 		}
 	}
 

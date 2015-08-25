@@ -1,16 +1,27 @@
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class EnemyClass extends GameObject {
 
-	private long warmUp;
-	private int playerLoggedX;
 	GameObject playerObject;
 	int startX;
 	boolean charge = false;
 	static int warmUpDelay = 1500;
+	private long warmUp;
+	private int playerLoggedX;
+	private static BufferedImage EnemyImage;
 
 	public EnemyClass(int X, int Y, int Sp, int Wdh, int Hgt, GameObject Player) {
 		super(X, Y, Sp, Wdh, Hgt);
+		try {
+			EnemyImage = ImageIO.read(this.getClass().getResourceAsStream(
+					"Boulder.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		startX = X;
 		playerObject = Player;
 		warmUp = System.currentTimeMillis();
@@ -49,7 +60,7 @@ public class EnemyClass extends GameObject {
 	}
 
 	public void paint(Graphics G) {
-		G.fillRect(X, Y, Wdh, Hgt);
+		G.drawImage(EnemyImage, X, Y, Wdh, Hgt, null);
 
 	}
 }
