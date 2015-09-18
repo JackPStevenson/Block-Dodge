@@ -15,6 +15,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 public class SpaceInvadorz extends JPanel implements ActionListener,
 		KeyListener {
 	URL backgroundURL;
@@ -32,6 +35,9 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	Font font;
 	static final int widthF = 500;
 	static final int heightF = 500;
+	String musicStarting = "Game-Menu_v001 2.mp3";
+	String musicGame = "Frantic-Gameplay 2.mp3";
+	int musicStage;
 	int BaESpeed = 20;
 	int bkgX = 0;
 	int bkgY = 0;
