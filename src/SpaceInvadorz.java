@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
@@ -62,6 +63,20 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 
 	public void MainStart() {
 		startFrame = new JFrame("Start Frame");
+		try {
+			startFrame.setContentPane(new JPanel() {
+				BufferedImage backgroundImage = ImageIO.read(this.getClass()
+						.getResourceAsStream("Starting Screen.png"));
+
+				public void paintComponent(Graphics g) {
+					super.paintComponent(g);
+					g.drawImage(backgroundImage, 0, 0, 500, 500, this);
+				}
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		StartScreen startingScreen = new StartScreen(this, highScore);
 		startFrame.add(startingScreen);
 		startFrame.setSize(widthF, heightF);
