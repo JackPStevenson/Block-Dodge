@@ -37,6 +37,7 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	static final int heightF = 500;
 	String musicStarting = "Game-Menu_v001 2.mp3";
 	String musicGame = "Frantic-Gameplay 2.mp3";
+	Media music;
 	int musicStage;
 	int BaESpeed = 20;
 	int bkgX = 0;
