@@ -7,10 +7,9 @@ public class GameObject {
 	protected int Wdh;
 	protected int Hgt;
 
-	public GameObject(int X, int Y, int Sp, int Wdh, int Hgt) {
+	public GameObject(int X, int Y, int Wdh, int Hgt) {
 		this.X = X;
 		this.Y = Y;
-		this.Sp = Sp;
 		this.Wdh = Wdh;
 		this.Hgt = Hgt;
 	}

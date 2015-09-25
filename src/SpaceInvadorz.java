@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -45,6 +46,8 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	int bkgX2 = 0;
 	int bkgY2 = -500;
 	int dSTime;
+	Random xRandom;
+	Random xRandom2;
 	static int gameState = 0;
 	public static final int startScreen = 0;
 	public static final int gameScreen = 1;
@@ -69,6 +72,8 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 	}
 
 	public void MainStart() {
+		xRandom = new Random();
+		xRandom2 = new Random();
 		startFrame = new JFrame("Start Frame");
 		try {
 			startFrame.setContentPane(new JPanel() {
@@ -112,9 +117,9 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 
 		mainFrame.add(this);
 		mainFrame.addKeyListener(this);
-		Player = new PlayerClass(225, 350, 5, 50, 50);
-		Enemy1 = new EnemyClass(50, 50, BaESpeed, 50, 50, Player);
-		Enemy2 = new EnemyClass(400, 50, BaESpeed, 50, 50, Player);
+		Player = new PlayerClass(225, 350, 50, 50);
+		Enemy1 = new EnemyClass(50, -50, 50, 50, Player);
+		Enemy2 = new EnemyClass(400, -50, 50, 50, Player);
 		font = new Font("ComicSansMS", Font.PLAIN, 15);
 		FPS = new Timer(1000 / 30, this);
 		FPS.start();
@@ -149,7 +154,6 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 						}
 						dShield = true;
 						if (lives == 0) {
-							EnemyClass.warmUpDelay = 1500;
 							score = 0;
 							lives = 2;
 							Player.X = 225;
@@ -169,7 +173,6 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 						}
 						dShield = true;
 						if (lives == 0) {
-							EnemyClass.warmUpDelay = 1500;
 							score = 0;
 							lives = 2;
 							Player.X = 225;
@@ -186,6 +189,14 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 				dShield = false;
 				dSTime = 0;
 			}
+		}
+		if (Enemy1.Y > 450) {
+			Enemy1.X = xRandom.nextInt(200);
+			Enemy1.Y = -50;
+		}
+		if (Enemy2.Y > 450) {
+			Enemy2.X = xRandom.nextInt(200) + 250;
+			Enemy2.Y = -50;
 		}
 	}
 
