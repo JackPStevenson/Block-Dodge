@@ -1,7 +1,6 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -10,7 +9,7 @@ public class EnemyClass extends GameObject {
 	GameObject playerObject;
 	int startX;
 	boolean charge = false;
-	static int speed = 20;
+	static int speed = 10;
 	private static BufferedImage EnemyImage;
 
 	public EnemyClass(int X, int Y, int Wdh, int Hgt, GameObject Player) {
