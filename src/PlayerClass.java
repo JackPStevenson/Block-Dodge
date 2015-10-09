@@ -8,11 +8,11 @@ public class PlayerClass extends GameObject {
 
 	private static BufferedImage PlayerImage;
 	int Sp = 5;
+
 	public PlayerClass(int X, int Y, int Wdh, int Hgt) {
 		super(X, Y, Wdh, Hgt);
 		try {
-			PlayerImage = ImageIO.read(this.getClass().getResourceAsStream(
-					"Pixel Ship.png"));
+			PlayerImage = ImageIO.read(this.getClass().getResourceAsStream("Pixel Ship.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

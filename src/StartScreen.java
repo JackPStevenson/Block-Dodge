@@ -40,35 +40,24 @@ public class StartScreen extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == StartButton) {
-			if(firstStart == true){	
+			if (firstStart == true) {
+				JOptionPane.showMessageDialog(null, "Controls: A and D to move Left and Right");
 				JOptionPane.showMessageDialog(null,
-						"Controls: A and D to move Left and Right");
-				JOptionPane
-						.showMessageDialog(null,
-								"Primary Objective: Dodge the Boulders as they fall from the Stratosphere");
-				JOptionPane
-						.showMessageDialog(null,
-								"Mechanics: Points are Scored by Dodging both Boulders per Interval");
-				JOptionPane
-						.showMessageDialog(null,
-								"Note: High Score Resets when Game is Refreshed(Closed/Reopened)");
+						"Primary Objective: Dodge the Boulders as they fall from the Stratosphere");
+				JOptionPane.showMessageDialog(null,
+						"Mechanics: Points are Scored by Dodging both Boulders per Interval");
+				JOptionPane.showMessageDialog(null, "Note: High Score Resets when Game is Refreshed(Closed/Reopened)");
 				firstStart = false;
 			}
 			SpaceInvadorz.setGameState(SpaceInvadorz.gameScreen);
 			sIObject.MainRun();
 		}
 		if (e.getSource() == HelpButton) {
+			JOptionPane.showMessageDialog(null, "Controls: A and D to move Left and Right");
 			JOptionPane.showMessageDialog(null,
-					"Controls: A and D to move Left and Right");
-			JOptionPane
-					.showMessageDialog(null,
-							"Primary Objective: Dodge the Boulders as they fall from the Stratosphere");
-			JOptionPane
-					.showMessageDialog(null,
-							"Mechanics: Points are Scored by Dodging both Boulders per Interval");
-			JOptionPane
-					.showMessageDialog(null,
-							"Note: High Score Resets when Game is Refreshed(Closed/Reopened)");
+					"Primary Objective: Dodge the Boulders as they fall from the Stratosphere");
+			JOptionPane.showMessageDialog(null, "Mechanics: Points are Scored by Dodging both Boulders per Interval");
+			JOptionPane.showMessageDialog(null, "Note: High Score Resets when Game is Refreshed(Closed/Reopened)");
 		}
 		if (e.getSource() == ExitButton) {
 			System.exit(0);
@@ -77,8 +66,7 @@ public class StartScreen extends JPanel implements ActionListener {
 	}
 
 	private void playSound(String fileName, String action) {
-		AudioClip sound = JApplet
-				.newAudioClip(getClass().getResource(fileName));
+		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
 		if (action.equals("play")) {
 			sound.loop();
 			System.out.println("play");

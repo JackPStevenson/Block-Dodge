@@ -15,8 +15,7 @@ public class EnemyClass extends GameObject {
 	public EnemyClass(int X, int Y, int Wdh, int Hgt, GameObject Player) {
 		super(X, Y, Wdh, Hgt);
 		try {
-			EnemyImage = ImageIO.read(this.getClass().getResourceAsStream(
-					"Boulder.png"));
+			EnemyImage = ImageIO.read(this.getClass().getResourceAsStream("Boulder.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

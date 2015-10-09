@@ -1,3 +1,5 @@
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -7,23 +9,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class SpaceInvadorz extends JPanel implements ActionListener,
-		KeyListener {
+public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener {
 	URL backgroundURL;
 	URL backgroundURL2;
 	Image backgroundSky;
 	Image backgroundSky2;
 	boolean dPressed = false;
 	boolean aPressed = false;
+	boolean soundP = false;
 	GameObject Player;
 	GameObject Enemy1;
 	GameObject Enemy2;
@@ -70,8 +79,8 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 		startFrame = new JFrame("Start Frame");
 		try {
 			startFrame.setContentPane(new JPanel() {
-				BufferedImage backgroundImage = ImageIO.read(this.getClass()
-						.getResourceAsStream("Starting Screen.png"));
+				BufferedImage backgroundImage = ImageIO
+						.read(this.getClass().getResourceAsStream("Starting Screen.png"));
 
 				public void paintComponent(Graphics g) {
 					super.paintComponent(g);
@@ -92,15 +101,13 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 		mainFrame = new JFrame("Game Frame");
 		mainFrame.setSize(widthF, heightF);
 		mainFrame.setVisible(true);
-		backgroundURL = getClass().getResource(
-				"blue-clouds-background-cartoon-style-clouds.png");
+		backgroundURL = getClass().getResource("blue-clouds-background-cartoon-style-clouds.png");
 		try {
 			backgroundSky = ImageIO.read(backgroundURL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		backgroundURL2 = getClass().getResource(
-				"blue-clouds-background-cartoon-style-clouds.png");
+		backgroundURL2 = getClass().getResource("blue-clouds-background-cartoon-style-clouds.png");
 		try {
 			backgroundSky2 = ImageIO.read(backgroundURL2);
 		} catch (IOException e) {
@@ -163,6 +170,7 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 						if (dShield == false) {
 							lives--;
 						}
+
 						dShield = true;
 						if (lives == 0) {
 							score = 0;
@@ -230,6 +238,17 @@ public class SpaceInvadorz extends JPanel implements ActionListener,
 		}
 		if (e.getKeyCode() == KeyEvent.VK_A) {
 			aPressed = false;
+		}
+	}
+
+	private void playSound(String fileName, String action) {
+		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
+		if (action.equals("play")) {
+			sound.loop();
+			System.out.println("play");
+		} else if (action.equals("stop")) {
+			sound.stop();
+			System.out.println("stop");
 		}
 	}
 }
