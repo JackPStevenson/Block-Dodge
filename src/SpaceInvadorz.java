@@ -112,7 +112,7 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 		mainFrame = new JFrame("Game Frame");
 		mainFrame.setSize(widthF, heightF);
 		mainFrame.setVisible(true);
-		backgroundURL = getClass().getResource("blue-clouds-background-cartoon-style-clouds.png");
+		backgroundURL = getClass().getResource("BkgImage.png");
 		try
 		{
 			backgroundSky = ImageIO.read(backgroundURL);
@@ -120,7 +120,7 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 		{
 			e.printStackTrace();
 		}
-		backgroundURL2 = getClass().getResource("blue-clouds-background-cartoon-style-clouds.png");
+		backgroundURL2 = getClass().getResource("BkgImage.png");
 		try
 		{
 			backgroundSky2 = ImageIO.read(backgroundURL2);
