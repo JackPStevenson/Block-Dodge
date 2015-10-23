@@ -1,5 +1,4 @@
-import java.applet.Applet;
-import java.applet.AudioClip;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -16,14 +15,11 @@ import java.net.URL;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -132,14 +128,15 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 		{
 			e.printStackTrace();
 		}
-
+		String E1 = new File("E1.wav").getAbsolutePath();
+		String E2 = new File("E2.wav").getAbsolutePath();
 		mainFrame.add(this);
 		mainFrame.addKeyListener(this);
 		Player = new PlayerClass(225, 350, 50, 50);
 		Enemy1 = new EnemyClass(50, -50, 50, 50, Player);
 		Enemy2 = new EnemyClass(400, -50, 50, 50, Player);
-		Explo1 = new Sound("/Users/league/Block-Dodge/src/E1.wav");
-		Explo2 = new Sound("/Users/league/Block-Dodge/src/E2.wav");
+		Explo1 = new Sound(E1);
+		Explo2 = new Sound(E2);
 		font = new Font("ComicSansMS", Font.PLAIN, 15);
 		FPS = new Timer(1000 / 30, this);
 		FPS.start();
@@ -326,7 +323,7 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 	{
 		private Clip clip;
 
-		public Sound(String fileName)
+		public Sound(String p)
 		{
 			// specify the sound to play
 			// (assuming the sound can be played by the audio system)
@@ -334,7 +331,7 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 			try
 			{
 
-				File file = new File(fileName);
+				File file = new File(p);
 				if (file.exists())
 				{
 					AudioInputStream sound = AudioSystem.getAudioInputStream(file);
@@ -343,7 +340,7 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 					clip.open(sound);
 				} else
 				{
-					throw new RuntimeException("Sound: file not found: " + fileName);
+					throw new RuntimeException("Sound: file not found: " + p);
 				}
 			} catch (MalformedURLException e)
 			{
@@ -382,4 +379,6 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 			clip.stop();
 		}
 	}
+	
+	
 }
