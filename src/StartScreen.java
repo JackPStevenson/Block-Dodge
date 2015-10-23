@@ -69,10 +69,8 @@ public class StartScreen extends JPanel implements ActionListener {
 		AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
 		if (action.equals("play")) {
 			sound.loop();
-			System.out.println("play");
 		} else if (action.equals("stop")) {
 			sound.stop();
-			System.out.println("stop");
 		}
 	}
 }
