@@ -71,7 +71,6 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 	{
 		gameState = a;
 	}
-
 	public static void main(String[] args)
 	{
 		Toolkit.getDefaultToolkit();
@@ -305,6 +304,14 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 		{
 			aPressed = true;
 		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			dPressed = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			aPressed = true;
+		}
 	}
 
 	public void keyReleased(KeyEvent e)
@@ -314,6 +321,14 @@ public class SpaceInvadorz extends JPanel implements ActionListener, KeyListener
 			dPressed = false;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_A)
+		{
+			aPressed = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			dPressed = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
 			aPressed = false;
 		}

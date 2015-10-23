@@ -9,7 +9,7 @@ public class EnemyClass extends GameObject {
 	GameObject playerObject;
 	int startX;
 	boolean charge = false;
-	static int speed = 10;
+	static int speed = 15;
 	private static BufferedImage EnemyImage;
 
 	public EnemyClass(int X, int Y, int Wdh, int Hgt, GameObject Player) {
@@ -24,7 +24,10 @@ public class EnemyClass extends GameObject {
 	}
 
 	public void Update() {
-		Y = Y + speed + (SpaceInvadorz.score / 8);
+		if(SpaceInvadorz.score / 10 < 40){
+			Y = Y + speed + (SpaceInvadorz.score / 10);	
+		}
+		
 		if (Y > 450) {
 			SpaceInvadorz.score = SpaceInvadorz.score + 1;
 			if (SpaceInvadorz.score > SpaceInvadorz.highScore) {

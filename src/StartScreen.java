@@ -41,7 +41,7 @@ public class StartScreen extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == StartButton) {
 			if (firstStart == true) {
-				JOptionPane.showMessageDialog(null, "Controls: A and D to move Left and Right");
+				JOptionPane.showMessageDialog(null, "Controls: A and D or Left and Right Arrow Keys to move Left and Right");
 				JOptionPane.showMessageDialog(null,
 						"Primary Objective: Dodge the Boulders as they fall from the Stratosphere");
 				JOptionPane.showMessageDialog(null,
