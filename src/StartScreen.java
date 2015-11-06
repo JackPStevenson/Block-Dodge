@@ -2,7 +2,15 @@ import java.applet.AudioClip;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +20,8 @@ import javax.swing.JPanel;
 public class StartScreen extends JPanel implements ActionListener {
 
 	Font font;
+	Sound Menu;
+	String MMusic = new File("Menu.wav").getAbsolutePath();
 	boolean firstStart = true;
 	JButton StartButton;
 	JButton ExitButton;
@@ -20,6 +30,7 @@ public class StartScreen extends JPanel implements ActionListener {
 	static JLabel HighScore;
 
 	public StartScreen(SpaceInvadorz Object, int highScore) {
+		Menu = new Sound(MMusic);
 		font = new Font("ComicSansMS", Font.PLAIN, 14);
 		StartButton = new JButton("Start");
 		ExitButton = new JButton("Exit");
@@ -35,13 +46,14 @@ public class StartScreen extends JPanel implements ActionListener {
 		StartButton.addActionListener(this);
 		ExitButton.addActionListener(this);
 		HelpButton.addActionListener(this);
-		playSound("Menu.wav", "play");
+		Menu.loop();
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == StartButton) {
 			if (firstStart == true) {
-				JOptionPane.showMessageDialog(null, "Controls: A and D or Left and Right Arrow Keys to move Left and Right");
+				JOptionPane.showMessageDialog(null,
+						"Controls: A and D or Left and Right Arrow Keys to move Left and Right");
 				JOptionPane.showMessageDialog(null,
 						"Primary Objective: Dodge the Boulders as they fall from the Stratosphere");
 				JOptionPane.showMessageDialog(null,
@@ -71,6 +83,55 @@ public class StartScreen extends JPanel implements ActionListener {
 			sound.loop();
 		} else if (action.equals("stop")) {
 			sound.stop();
+		}
+	}
+
+	public class Sound {
+		private Clip clip;
+
+		public Sound(String p) {
+			// specify the sound to play
+			// (assuming the sound can be played by the audio system)
+			// from a wave File
+			try {
+
+				File file = new File(p);
+				if (file.exists()) {
+					AudioInputStream sound = AudioSystem.getAudioInputStream(file);
+					// load the sound into memory (a Clip)
+					clip = AudioSystem.getClip();
+					clip.open(sound);
+				} else {
+					throw new RuntimeException("Sound: file not found: " + p);
+				}
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+				throw new RuntimeException("Sound: Malformed URL: " + e);
+			} catch (UnsupportedAudioFileException e) {
+				e.printStackTrace();
+				throw new RuntimeException("Sound: Unsupported Audio File: " + e);
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new RuntimeException("Sound: Input/Output Error: " + e);
+			} catch (LineUnavailableException e) {
+				e.printStackTrace();
+				throw new RuntimeException("Sound: Line Unavailable Exception Error: " + e);
+			}
+
+			// play, stop, loop the sound clip
+		}
+
+		public void play() {
+			clip.setFramePosition(0); // Must always rewind!
+			clip.start();
+		}
+
+		public void loop() {
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		}
+
+		public void stop() {
+			clip.stop();
 		}
 	}
 }

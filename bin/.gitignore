@@ -1,6 +1,5 @@
+/BkgImage.png
 /Boulder.png
-/E1.wav
-/E2.wav
 /EnemyClass.class
 /Frantic.wav
 /GameObject.class
@@ -14,6 +13,4 @@
 /Stars.png
 /StartScreen.class
 /Starting Screen.png
-/blue-clouds-background-cartoon-style-clouds.png
-/.DS_Store
-/BkgImage.png
+/StartScreen$Sound.class
